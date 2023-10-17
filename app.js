@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
 const productRouter = require('./app/product/router');
+const categoryRouter = require('./app/category/router');
+const tagRouter = require('./app/tag/router');
 
 var app = express();
 
@@ -19,10 +21,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/products', productRouter);
+// product
+app.use('/api', productRouter);
+// category
+app.use('/api', categoryRouter);
+// tag
+app.use('/api', tagRouter);
 
 // home
-app.use(function (req, res) {
+app.use('/', function (req, res) {
   res.render('index', {
     title: 'Eduwork API Service',
   });
